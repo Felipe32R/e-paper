@@ -15,6 +15,7 @@ import {
 } from "@tanstack/react-table";
 import {
   ChevronsUpDown,
+  CircleCheck,
   FileText,
   MoreHorizontal,
   Trash,
@@ -38,6 +39,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { client } from "@/app/api/client";
+import { deleteDocument } from "@/app/api/actions";
+import { toast } from "@/hooks/use-toast";
 
 export interface Document {
   id?: number;
@@ -179,14 +183,14 @@ export const columns: ColumnDef<Document>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("createdAt"));
-      const formattedDate = new Intl.DateTimeFormat("pt-BR", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-      }).format(date);
+      const date = row.getValue("createdAt");
+      // const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+      //   day: "2-digit",
+      //   month: "long",
+      //   year: "numeric",
+      // }).format(date);
 
-      return <div className=" font-medium">{formattedDate}</div>;
+      return <div className=" font-medium">{String(date)}</div>;
     },
   },
   {
@@ -203,21 +207,34 @@ export const columns: ColumnDef<Document>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("updatedAt"));
-      const formattedDate = new Intl.DateTimeFormat("pt-BR", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-      }).format(date);
+      const date = row.getValue("updatedAt");
+      // const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+      //   day: "2-digit",
+      //   month: "long",
+      //   year: "numeric",
+      // }).format(date);
 
-      return <div className=" font-medium">{formattedDate}</div>;
+      return <div className=" font-medium">{String(date)}</div>;
     },
   },
 
   {
     id: "actions",
     enableHiding: false,
-    cell: () => {
+    cell: ({ row }) => {
+      async function handleDelete(id: number) {
+        await deleteDocument(id);
+        toast({
+          className: "text-white bg-green-primary-main",
+          action: (
+            <div className="w-full flex items-center ">
+              <CircleCheck className="mr-2" />
+              <span>Documento deletado com sucesso!</span>
+            </div>
+          ),
+        });
+      }
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -230,7 +247,8 @@ export const columns: ColumnDef<Document>[] = [
               <View /> Visualizar
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer hover:!bg-red-100">
-              <Trash /> Excluir documento
+              <Trash onClick={() => handleDelete(Number(row.original.id))} />{" "}
+              Excluir documento
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -340,7 +358,7 @@ export function DataTableDemo({ propsData }: DataTableProps) {
             )}
           </TableBody>
         </Table>
-        <div className="w-full bg-border-light  flex py-2">
+        <div className="w-full bg-border-light  py-2 hidden  md:flex">
           <div className="w-9"></div>
           <div className="max-w-[200px] w-full flex flex-col px-4 text-sm">
             <span className="text-text-secondary">Total</span>
@@ -360,15 +378,16 @@ export function DataTableDemo({ propsData }: DataTableProps) {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-end space-x-3 py-4">
-        <div className="text-sm text-gray-500">
+      <div className="flex items-center justify-center md:justify-end space-x-3 py-4">
+        <div className="text-sm text-gray-500 hidden md:block">
           {endRow} de {totalRows}
         </div>
-        <div className="space-x-4">
+        <div className="space-x-4  flex md:block w-full md:w-auto">
           <Button
             variant="outline"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
+            className="  w-full md:w-auto"
           >
             Anterior
           </Button>
@@ -376,6 +395,7 @@ export function DataTableDemo({ propsData }: DataTableProps) {
             variant="outline"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
+            className="  w-full md:w-auto"
           >
             Próximo
           </Button>

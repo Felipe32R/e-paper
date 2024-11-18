@@ -12,7 +12,7 @@ export default function Header() {
 
   return (
     <header className="flex w-full items-center justify-between px-5 py-2 border-neutral border-b-[1px] sticky top-0 bg-white ">
-      <menu className="flex gap-8 items-center">
+      <menu className="flex gap-2 sm:gap-8 items-center">
         <button
           className={cn(
             "border border-transparent p-2 rounded-lg",
@@ -23,12 +23,12 @@ export default function Header() {
           <Menu />
         </button>
 
-        <span className="  border-r-[1px] border-neutral pr-8">
+        <span className=" border-r-0 sm:border-r-[1px] border-neutral pr-0  sm:pr-8">
           <Image src={logo} width={120} height={120} alt="Logo" />
         </span>
 
-        <div className="flex items-center gap-3">
-          <LayoutGrid /> <span>Soluções</span>
+        <div className=" flex items-center gap-0 sm:gap-3">
+          <LayoutGrid /> <span className="hidden md:flex">Soluções</span>
         </div>
       </menu>
       <UserBadge

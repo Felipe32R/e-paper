@@ -27,14 +27,14 @@ export default function PageHeader({
   }
 
   return (
-    <div className="flex items-end w-full  justify-between">
+    <div className="flex items-start w-full md:items-end  justify-between flex-col gap-3 md:flex-row">
       <div className="flex flex-col gap-2">
         <h1 className="font-bold text-xl">{pageTitle}</h1>
         <span className="text-text-secondary">{description}</span>
       </div>
 
-      <div className="flex items-center gap-5 ">
-        <div className="flex items-center w-[330px] h-10">
+      <div className="flex flex-col gap-2  sm:flex-row  sm:gap-5 items-center  w-full md:w-auto">
+        <div className="flex items-center  w-full md:w-[330px] h-10">
           <Input
             className="p-5 w-full h-10"
             placeholder="Buscar documentos"

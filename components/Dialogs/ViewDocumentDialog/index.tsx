@@ -30,12 +30,12 @@ export default function ViewDocumentDialog({ file }: ViewDocumentDialogProps) {
       <DialogTrigger className="w-full text-left text-green-primary-main text-sm mt-2">
         Pré-visualizar
       </DialogTrigger>
-      <DialogContent className="w-[80%] max-w-full h-[80%]">
+      <DialogContent className=" w-full h-full sm:w-[80%] max-w-full sm:h-[80%]">
         <DialogHeader className="h-16">
           <DialogTitle>Pré-visualização do arquivo</DialogTitle>
           <DialogDescription>{file.name}</DialogDescription>
         </DialogHeader>
-        <div className="flex justify-center items-center h-[480px] flex-1 ">
+        <div className="flex justify-center items-center h-full sm:h-[480px] flex-1 overflow-auto ">
           {/* Exibe o PDF com um scroll */}
           <embed
             src={fileUrl}

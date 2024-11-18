@@ -2,24 +2,19 @@
 
 import { useMenuContext } from "@/contexts/MenuContext";
 import { cn } from "@/lib/utils";
-import { ScrollText, StickyNote } from "lucide-react";
+import { FileText, ScrollText, StickyNote } from "lucide-react";
 import { useState } from "react";
 
 export default function Sidebar() {
   const { isMenuOpen } = useMenuContext();
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
 
-  const sidebarItems = [
-    { id: 1, name: "Notas", icon: StickyNote },
-    { id: 2, name: "Documentos", icon: ScrollText },
-    { id: 3, name: "Relatórios", icon: StickyNote },
-    { id: 4, name: "Arquivos", icon: ScrollText },
-  ];
+  const sidebarItems = [{ id: 1, name: "Documentos", icon: FileText }];
 
   return (
     <aside
       className={cn(
-        "w-20 h-full border-r border-neutral flex flex-col gap-4 items-center py-6  transition-all  duration-100 ",
+        " w-20 h-full border-r border-neutral hidden lg:flex flex-col gap-4 items-center py-6  transition-all  duration-100 ",
         isMenuOpen && "w-64 shadow-md"
       )}
     >

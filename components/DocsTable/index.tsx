@@ -36,7 +36,7 @@ export default function DocsTable({ data }: DocsTableProps) {
         if (name) query.nome = name;
 
         const res = await client.getAll({ query });
-        console.log("filtered", res.body);
+
         //@ts-ignore
         setDocuments(res.body.documents);
       } catch (error) {
@@ -69,9 +69,9 @@ export default function DocsTable({ data }: DocsTableProps) {
         name={name}
         setDocuments={setDocuments}
       />
-      <hr />
+      <hr className=" hidden sm:block" />
       <div className="w-full flex justify-between items-end">
-        <div className="w-[672px] flex items-center gap-10">
+        <div className="w-full  flex-col gap-3 sm:flex-row  lg:w-[672px] flex items-center sm:gap-10">
           <InputWrapper title="Origem do documento" icon={true}>
             <Combobox
               defaultValue="Selecionar origem do documento"

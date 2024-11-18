@@ -103,19 +103,22 @@ export default function CreateDocumentDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleDialogChange}>
-      <DialogTrigger className="inline-flex h-10 p-2 px-4 w-[200px] rounded-md  bg-green-primary-main hover:bg-green-primary-main hover:opacity-80  items-center gap-3 text-white font-medium">
+      <DialogTrigger className="absolute z-50 bottom-[300px] sm:bottom-20  h-16 w-16 right-10 flex items-center p-0 justify-center lg:right-0 lg:bottom-0  rounded-full lg:relative  lg:inline-flex lg:h-10 lg:p-2 px-4 lg:w-[200px] lg:rounded-md  bg-green-primary-main hover:bg-green-primary-main hover:opacity-80   gap-3 text-white font-medium">
         <Plus size={20} />
-        Novo documento
+        <span className=" hidden lg:block">Novo documento</span>
       </DialogTrigger>
 
-      <DialogContent className="w-[697px] max-w-full h-[640px]">
-        <DialogHeader>
+      <DialogContent className=" w-[697px] max-w-full h-full sm:h-[640px]">
+        <DialogHeader className="text-start">
           <DialogTitle>Criar novo documento</DialogTitle>
           <DialogDescription>
             Insira os dados necessários para criar
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 h-full"
+        >
           <span className=" w-[60px] text-center  border border-border-neutral bg-border-light text-text-secondary p-2  rounded-full text-sm font-bold">
             0000
           </span>
@@ -161,11 +164,12 @@ export default function CreateDocumentDialog() {
               variant="outline"
               onClick={() => handleDialogChange(false)}
               disabled={isLoading}
+              className="w-full sm:w-auto"
             >
               Cancelar
             </Button>
             <Button
-              className="bg-green-primary-main flex gap-1 items-center"
+              className="bg-green-primary-main flex gap-1 items-center w-full sm:w-auto"
               type="submit"
               disabled={Object.keys(errors).length > 0 || !file || isLoading}
             >

@@ -18,6 +18,7 @@ import { Filter, Info } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { client } from "@/app/api/client";
 import { Document } from "@/components/DocsTable/DataTable";
+import { DatePicker } from "@/components/ui/date-picker";
 
 const documentSchema = z.object({
   emitente: z.string().optional().nullable(),
@@ -54,6 +55,7 @@ export default function FilterDocumentDialog({
   });
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSheetChange = (open: boolean) => {
     setIsOpen(open);
@@ -63,7 +65,7 @@ export default function FilterDocumentDialog({
   };
 
   const onSubmit = async (data: DocumentFormValues) => {
-    console.log("Dados do formulário:", data);
+    setIsLoading(true);
 
     try {
       const query: { [key: string]: string } = {};
@@ -76,22 +78,24 @@ export default function FilterDocumentDialog({
       if (data.valorTotal) query.valorTotal = String(data.valorTotal);
 
       const res = await client.getAll({ query });
-      console.log("filtered", res.body);
+
       reset();
       /* @ts-ignore */
       setDocuments(res.body.documents);
       setIsOpen(false);
     } catch (error) {
       console.error("Erro ao buscar documentos:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <Sheet open={isOpen} onOpenChange={handleSheetChange}>
-      <SheetTrigger className="h-10 text-sm flex items-center gap-2 px-4 py-[10px] border border-border-neutral rounded-md font-medium">
+      <SheetTrigger className=" w-full sm:w-auto h-10 text-sm flex items-center justify-center gap-2 px-4 py-[10px] border border-border-neutral rounded-md font-medium">
         <Filter size={20} /> Filtrar
       </SheetTrigger>
-      <SheetContent className="w-[440px] sm:w-[540px]">
+      <SheetContent className="w-full sm:w-[540px]">
         <SheetHeader>
           <SheetTitle>Filtrar Documentos</SheetTitle>
           <SheetDescription className="text-sm flex">
@@ -110,9 +114,10 @@ export default function FilterDocumentDialog({
               selecionar os tipos de índice para a filtragem.
             </p>
           </div>
+          {/* não implementado no filtro */}
+          <DatePicker />
 
           <InputWrapper title="Tipo de documento">
-            {/* Controla o Combobox com o react-hook-form */}
             <Controller
               name="tipo"
               control={control}
@@ -158,9 +163,9 @@ export default function FilterDocumentDialog({
             <Button
               type="submit"
               className="bg-green-primary-main"
-              disabled={!isDirty}
+              disabled={!isDirty || isLoading}
             >
-              Aplicar filtro
+              {isLoading ? "Carregando..." : "Aplicar filtro"}
             </Button>
           </footer>
         </form>

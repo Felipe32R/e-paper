@@ -104,8 +104,11 @@ const FileInput: React.FC<FileInputProps> = ({ onFileChange }) => {
           onDrop={handleDrop}
         >
           <FileUp size={35} className="text-green-500" />
-          <p className="text-center text-lg font-medium text-gray-800">
-            Arraste e solte aqui ou selecione o arquivo para upload
+          <p className="hidden sm:flex text-center text-lg font-medium text-gray-800">
+            Arraste ou solte aqui ou selecione o arquivo para upload
+          </p>
+          <p className="flex sm:hidden text-center text-lg font-medium text-gray-800">
+            Toque aqui e selecione o arquivo para upload
           </p>
           <label className="bg-white border border-gray-300 rounded-md py-2 px-4 font-semibold cursor-pointer">
             <input
