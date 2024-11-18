@@ -15,7 +15,7 @@ export default function UserBadge({
   return (
     <div className="flex gap-8 items-center ">
       <Bell className="cursor-pointer" />
-      <div className="flex items-center gap-4 py-2 px-5 border-[1px] rounded-lg border-neutral-200 cursor-pointer">
+      <div className="flex items-center gap-4 py-2 px-5 border-[1px] rounded-lg border-neutral cursor-pointer">
         <Image
           src={userImage}
           width={40}
