@@ -7,5 +7,5 @@ export const client = initClient(documentsContract, {
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
   },
-  baseUrl: "http://localhost:3000/api",
+  baseUrl: "http://172.31.13.290:3000/api",
 });
