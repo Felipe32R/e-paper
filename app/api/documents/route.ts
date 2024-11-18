@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 
 export async function GET(request: Request) {
   try {
-    // Extrair parâmetros de query usando nextUrl
     const searchParams = new URL(request.url).searchParams;
 
     const nome = searchParams.get("nome") || undefined;
@@ -28,18 +27,6 @@ export async function GET(request: Request) {
       ? new Date(searchParams.get("createdAt")!)
       : undefined;
 
-    // Log para depuração
-    console.log("Parâmetros recebidos:", {
-      nome,
-      tipo,
-      origem,
-      emitente,
-      valorTotal,
-      valorLiquido,
-      createdAt,
-    });
-
-    // Construir os filtros dinamicamente
     const filters: Prisma.DocumentWhereInput = {
       ...(nome && { nome: { contains: nome } }),
       ...(tipo && { tipo: { contains: tipo } }),
@@ -52,9 +39,6 @@ export async function GET(request: Request) {
       ...(createdAt && { createdAt: { equals: createdAt } }),
     };
 
-    console.log("Filtros aplicados:", filters);
-
-    // Consultar o banco de dados com os filtros
     const docs = await prisma.document.findMany({
       where: filters,
     });
@@ -63,12 +47,9 @@ export async function GET(request: Request) {
       documents: docs,
     });
   } catch (error: unknown) {
-    console.error(
-      "Error fetching documents:",
-      error instanceof Error ? error.message : error
-    );
+    console.error("Erro ao buscar documentos");
     return NextResponse.json(
-      { error: "Failed to fetch documents" },
+      { error: "Erro ao buscar documentos" },
       { status: 500 }
     );
   }

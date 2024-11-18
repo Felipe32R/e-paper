@@ -27,33 +27,14 @@ export const documentsContract = c.router({
             origem: z.string(),
             tipo: z.string(),
             nome: z.string(),
-            createdAt: z.string(), // String para representar DateTime
-            updatedAt: z.string(), // String para representar DateTime
+            createdAt: z.string(),
+            updatedAt: z.string(),
           })
         )
         .nullable(),
     },
   },
-  getById: {
-    method: "GET",
-    path: "/documents/:id",
-    responses: {
-      200: z
-        .object({
-          id: z.number(),
-          emitente: z.string(),
-          valorTotal: z.number(),
-          valorLiquido: z.number(),
-          origem: z.string(),
-          tipo: z.string(),
-          nome: z.string(),
-          createdAt: z.string(),
-          updatedAt: z.string(),
-        })
-        .nullable(),
-      404: z.object({ message: z.string() }),
-    },
-  },
+
   create: {
     method: "POST",
     path: "/documents",
@@ -79,32 +60,7 @@ export const documentsContract = c.router({
       }),
     },
   },
-  update: {
-    method: "PUT",
-    path: "/documents/:id",
-    body: z.object({
-      emitente: z.string().optional(),
-      valorTotal: z.number().optional(),
-      valorLiquido: z.number().optional(),
-      origem: z.string().optional(),
-      tipo: z.string().optional(),
-      nome: z.string().optional(),
-    }),
-    responses: {
-      200: z.object({
-        id: z.number(),
-        emitente: z.string(),
-        valorTotal: z.number(),
-        valorLiquido: z.number(),
-        origem: z.string(),
-        tipo: z.string(),
-        nome: z.string(),
-        createdAt: z.string(),
-        updatedAt: z.string(),
-      }),
-      404: z.object({ message: z.string() }),
-    },
-  },
+
   delete: {
     method: "DELETE",
     path: "/documents/:id",

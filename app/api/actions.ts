@@ -7,9 +7,8 @@ import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 export async function createDocument(obj: Document) {
-  console.log("doc", obj);
   try {
-    await prisma.document
+    const doc = await prisma.document
       .create({
         data: obj,
       })
@@ -17,7 +16,7 @@ export async function createDocument(obj: Document) {
         console.error("Prisma error:", error);
         return NextResponse.json(
           {
-            error: "Failed to create document in the database",
+            error: "Erro ao criar documento",
             details: error.message,
           },
           { status: 500 }
@@ -25,9 +24,33 @@ export async function createDocument(obj: Document) {
       });
 
     revalidatePath("/");
-    return console.log("criou");
-  } catch (e) {
-    console.log("error", e);
-    return { message: "Failed to create todo" };
+    return doc;
+  } catch (error) {
+    console.log("error", error);
+    return { message: "Erro ao criar documento" };
+  }
+}
+
+export async function deleteDocument(documentId: number) {
+  try {
+    const deletedDocument = await prisma.document.delete({
+      where: {
+        id: documentId,
+      },
+    });
+
+    revalidatePath("/");
+
+    return NextResponse.json(
+      { message: "Documento deletado", deletedDocument },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error: "Erro ao deletar documento",
+      },
+      { status: 500 }
+    );
   }
 }
