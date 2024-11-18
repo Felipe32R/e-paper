@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 import { NextResponse } from "next/server";
 
@@ -40,7 +40,7 @@ export async function GET(request: Request) {
     });
 
     // Construir os filtros dinamicamente
-    const filters: Record<string, any> = {
+    const filters: Prisma.DocumentWhereInput = {
       ...(nome && { nome: { contains: nome } }),
       ...(tipo && { tipo: { contains: tipo } }),
       ...(origem && { origem: { contains: origem } }),

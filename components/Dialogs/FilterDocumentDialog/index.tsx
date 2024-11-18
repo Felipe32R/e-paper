@@ -78,6 +78,7 @@ export default function FilterDocumentDialog({
       const res = await client.getAll({ query });
       console.log("filtered", res.body);
       reset();
+      /* @ts-ignore */
       setDocuments(res.body.documents);
       setIsOpen(false);
     } catch (error) {

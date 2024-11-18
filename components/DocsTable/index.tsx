@@ -1,4 +1,5 @@
 "use client";
+
 import { Combobox } from "../ui/combobox";
 
 import { DataTableDemo, Document } from "./DataTable";
@@ -8,7 +9,7 @@ import InputWrapper from "../Inputs/InputWrapper";
 import { useEffect, useState } from "react";
 import PageHeader from "../PageHeader";
 import { client } from "@/app/api/client";
-import { Eraser, Trash } from "lucide-react";
+import { Eraser } from "lucide-react";
 
 type DocsTableProps = {
   data: {
@@ -36,7 +37,7 @@ export default function DocsTable({ data }: DocsTableProps) {
 
         const res = await client.getAll({ query });
         console.log("filtered", res.body);
-
+        //@ts-ignore
         setDocuments(res.body.documents);
       } catch (error) {
         console.error("Erro ao buscar documentos:", error);
