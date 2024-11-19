@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import DocsTable from "@/components/DocsTable";
 
 import { client } from "./api/client";
