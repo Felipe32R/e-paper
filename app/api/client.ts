@@ -7,5 +7,5 @@ export const client = initClient(documentsContract, {
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
   },
-  baseUrl: "http://localhost:3000/api",
+  baseUrl: process.env.BASE_URL || "http://localhost:3000/api",
 });
