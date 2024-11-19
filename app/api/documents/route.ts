@@ -10,22 +10,22 @@ export async function GET(request: Request) {
   try {
     const searchParams = new URL(request.url).searchParams;
 
-    const nome = searchParams.get("nome") || undefined;
-    const tipo = searchParams.get("tipo") || undefined;
-    const origem = searchParams.get("origem") || undefined;
-    const emitente = searchParams.get("emitente") || undefined;
+    const nome = searchParams.get("nome");
+    const tipo = searchParams.get("tipo");
+    const origem = searchParams.get("origem");
+    const emitente = searchParams.get("emitente");
 
     const valorTotal = searchParams.get("valorTotal")
       ? parseFloat(searchParams.get("valorTotal")!)
-      : undefined;
+      : null;
 
     const valorLiquido = searchParams.get("valorLiquido")
       ? parseFloat(searchParams.get("valorLiquido")!)
-      : undefined;
+      : null;
 
     const createdAt = searchParams.get("createdAt")
       ? new Date(searchParams.get("createdAt")!)
-      : undefined;
+      : null;
 
     const filters: Prisma.DocumentWhereInput = {
       ...(nome && { nome: { contains: nome } }),

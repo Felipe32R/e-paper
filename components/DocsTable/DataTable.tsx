@@ -39,7 +39,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { client } from "@/app/api/client";
+
 import { deleteDocument } from "@/app/api/actions";
 import { toast } from "@/hooks/use-toast";
 

@@ -2,7 +2,7 @@
 
 import { useMenuContext } from "@/contexts/MenuContext";
 import { cn } from "@/lib/utils";
-import { FileText, ScrollText, StickyNote } from "lucide-react";
+import { FileText } from "lucide-react";
 import { useState } from "react";
 
 export default function Sidebar() {
